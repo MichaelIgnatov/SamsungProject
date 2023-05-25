@@ -1,6 +1,7 @@
 package com.example.samsungproject;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,7 +44,7 @@ public class StudentProfile extends AppCompatActivity {
     private Button changeStudentAvatar;
     private ImageView studentAvatar;
     private static final String IMAGE_DIRECTORY = "/img";
-    private int GALLERY = 1, CAMERA = 2;
+    private final int GALLERY = 1, CAMERA = 2;
     String[] activityMenu = {"Профиль", "Портфолио", "Результаты ПА", "Выход"};
 
     @Override
@@ -133,7 +134,7 @@ public class StudentProfile extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == this.RESULT_CANCELED) {
+        if (resultCode == RESULT_CANCELED) {
             return;
         }
         if (requestCode == GALLERY) {
