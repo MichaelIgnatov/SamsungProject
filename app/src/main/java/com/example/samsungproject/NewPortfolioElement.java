@@ -74,11 +74,9 @@ public class NewPortfolioElement extends AppCompatActivity {
                     @Override
                     public void onActivityResult(
                             ActivityResult result) {
-                        // Инициализировать результирующие данные
                         Intent data = result.getData();
                         // проверьте состояние
                         if (data != null) {
-                            // Когда данные не равны пустым
                             // Получить uri PDF
                             Uri sUri = data.getData();
                             //  Получить путь PDF
@@ -90,11 +88,8 @@ public class NewPortfolioElement extends AppCompatActivity {
 
 
     public void fileSelection(View view){
-                        // проверка состояния
         if (ActivityCompat.checkSelfPermission(NewPortfolioElement.this, Manifest.permission
                 .READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            // Когда разрешение не предоставлено
-            // Разрешение на получение результата
             ActivityCompat.requestPermissions(
                     NewPortfolioElement.this, new String[] {
                             Manifest.permission.READ_EXTERNAL_STORAGE },
@@ -138,7 +133,7 @@ public class NewPortfolioElement extends AppCompatActivity {
         }
         else {
             // Когда в разрешении отказано
-            // Отоюразить тост
+            // Отобразить тост
             Toast
                     .makeText(getApplicationContext(),
                             "Permission Denied",
