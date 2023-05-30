@@ -1,10 +1,13 @@
 package com.example.samsungproject;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,12 +21,19 @@ public class ClassesList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classes_list);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ListView groupList = findViewById(R.id.group_list);
+
+        // ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                //android.R.layout.simple_list_item_1, );
+
+        //groupList.setAdapter(adapter);
+
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, activityMenu);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         Spinner spinner = findViewById(R.id.teacher_menu);
-        spinner.setAdapter(adapter);
+        spinner.setAdapter(adapter2);
         spinner.setPrompt("Title");
         spinner.setSelection(1);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -51,5 +61,29 @@ public class ClassesList extends AppCompatActivity {
     public void exitProfile() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void openAddClassDialog(View view) {
+        final Dialog dialog = new Dialog(ClassesList.this);
+        dialog.setContentView(R.layout.add_class_dialog);
+
+        Button addClassBtn = dialog.findViewById(R.id.add_class);
+        addClassBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        Button cancelBtn = dialog.findViewById(R.id.cancel);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
+
+        dialog.setCancelable(false);
+        dialog.show();
     }
 }

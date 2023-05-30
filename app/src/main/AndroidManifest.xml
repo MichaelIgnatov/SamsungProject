@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.premission.Camera"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -55,6 +56,14 @@
         </activity>
         <activity
             android:name=".ClassesList"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ViewingStudentsProfile"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".GroupStudents"
             android:screenOrientation="portrait">
         </activity>
     </application>

@@ -1,7 +1,6 @@
 package com.example.samsungproject;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -42,7 +41,7 @@ import java.util.List;
 public class StudentProfile extends AppCompatActivity {
 
     private Button changeStudentAvatar;
-    private ImageView studentAvatar;
+    public ImageView studentAvatar;
     private static final String IMAGE_DIRECTORY = "/img";
     private final int GALLERY = 1, CAMERA = 2;
     String[] activityMenu = {"Профиль", "Портфолио", "Результаты ПА", "Выход"};
@@ -54,11 +53,10 @@ public class StudentProfile extends AppCompatActivity {
 
         requestMultiplePermissions();
 
-        ImageView studentAvatar = findViewById(R.id.user_avatar);
+        Button changeStudentAvatar = findViewById(R.id.change_avatar_btn);
         EditText password = findViewById(R.id.current_password);
         EditText newPassword = findViewById(R.id.new_password);
         EditText repeatPassword = findViewById(R.id.repeat_password);
-        Button changeStudentAvatar = findViewById(R.id.change_avatar_btn);
         Button changePasswordButton = findViewById(R.id.change_password_btn);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -134,6 +132,7 @@ public class StudentProfile extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
+        studentAvatar = findViewById(R.id.user_avatar);
         if (resultCode == RESULT_CANCELED) {
             return;
         }

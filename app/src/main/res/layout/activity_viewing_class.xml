@@ -5,22 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/teacher_menu"
-        android:layout_width="54dp"
-        android:layout_height="36dp"
+    <Button
+        android:id="@+id/back_activity_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="backActivity"
+        android:text="Назад"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintVertical_bias="0.023" />
 
     <ListView
-        android:id="@+id/group_list"
-        android:layout_width="407dp"
-        android:layout_height="599dp"
+        android:layout_width="412dp"
+        android:layout_height="582dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -29,16 +29,13 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/add_class_btn"
-        android:layout_width="216dp"
+        android:id="@+id/add_sudent_btn"
+        android:layout_width="202dp"
         android:layout_height="49dp"
-        android:onClick="openAddClassDialog"
-        android:text="Добавить класс"
-        app:layout_constraintBottom_toBottomOf="@+id/group_list"
+        android:text="Добавить ученика"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.111" />
-
+        app:layout_constraintVertical_bias="0.131" />
 </androidx.constraintlayout.widget.ConstraintLayout>

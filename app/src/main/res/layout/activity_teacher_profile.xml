@@ -19,100 +19,101 @@
 
     <ImageView
         android:id="@+id/user_avatar"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.122"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="91dp"
-        tools:layout_editor_absoluteY="144dp"
+        app:layout_constraintVertical_bias="0.133"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/teacher_data"
+        android:layout_width="339dp"
+        android:layout_height="87dp"
+        android:text="Данные пользователя"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.354"
-        android:layout_width="222dp"
-        android:layout_height="103dp"
-        android:text="Данные пользователя"
-        tools:layout_editor_absoluteX="135dp"
-        tools:layout_editor_absoluteY="231dp" />
+        app:layout_constraintVertical_bias="0.521" />
 
     <TextView
         android:id="@+id/textView"
+        android:layout_width="179dp"
+        android:layout_height="17dp"
+        android:text="Смена пароля"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.541"
-        android:layout_width="183dp"
-        android:layout_height="44dp"
-        android:autoText="false"
-        android:text="Смена пароля"
-        android:textAlignment="center"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="204dp"
+        app:layout_constraintVertical_bias="0.624"
         tools:visibility="visible" />
 
     <EditText
         android:id="@+id/current_password"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.626"
-        android:layout_width="248dp"
+        android:layout_width="254dp"
         android:layout_height="42dp"
         android:hint="Введите текущий пароль"
-        tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="189dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.693"  />
 
     <EditText
         android:id="@+id/new_password"
+        android:layout_width="254dp"
+        android:layout_height="42dp"
+        android:hint="Введите новый пароль"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.723"
-        android:layout_width="246dp"
-        android:layout_height="43dp"
-        android:hint="Введите новый пароль"
-        tools:layout_editor_absoluteX="102dp"
-        tools:layout_editor_absoluteY="205dp" />
+        app:layout_constraintVertical_bias="0.77" />
 
     <EditText
         android:id="@+id/repeat_password"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.817"
         android:layout_width="254dp"
         android:layout_height="42dp"
         android:hint="Повторите пароль"
-        tools:layout_editor_absoluteX="54dp"
-        tools:layout_editor_absoluteY="248dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.854" />
 
     <Button
         android:id="@+id/change_password_btn"
+        android:layout_width="223dp"
+        android:layout_height="53dp"
+        android:text="Сменить  пароль"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.957" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="224dp"
+        android:layout_height="53dp"
+        android:onClick="OpenClassFragment"
+        android:text="Изменить аватар"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.918"
-        android:layout_width="223dp"
-        android:layout_height="53dp"
-        android:text="Сменить  пароль"
-        tools:layout_editor_absoluteX="109dp"
-        tools:layout_editor_absoluteY="311dp" />
+        app:layout_constraintVertical_bias="0.406" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
