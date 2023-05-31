@@ -11,12 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class StudentLoginActivity extends AppCompatActivity {
     Student studentObj;
     String login;
     String password;
-    boolean flag;
+    boolean flag = false;
     EditText studentPasswordTextedit;
     EditText studentLoginTextedit;
 
@@ -35,10 +37,16 @@ public class StudentLoginActivity extends AppCompatActivity {
     }
 
     public void studentLoginClick(View view) {
-        //login = studentLoginTextedit.getText().toString();
-        //password = studentPasswordTextedit.getText().toString();
-        flag = false;
-        Call<Student.StudentData> call = studentObj.studentService.studentLogin("Qwe", "123");
+        login = studentLoginTextedit.getText().toString();
+        password = studentPasswordTextedit.getText().toString();
+
+        String serverURl = "https://6784-178-65-47-77.ngrok-free.app/";
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(serverURl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Student.StudentService studentService = retrofit.create(Student.StudentService.class);
+
+        Call<Student.StudentData> call = studentService.studentLogin(login, password);
         call.enqueue(new Callback<Student.StudentData>() {
             @Override
             public void onResponse(Call<Student.StudentData> call, Response<Student.StudentData> response) {
