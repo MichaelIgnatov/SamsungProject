@@ -38,7 +38,7 @@
         android:id="@+id/login"
         android:layout_width="225dp"
         android:layout_height="60dp"
-        android:onClick="studentLogin"
+        android:onClick="studentLoginClick"
         android:text="Войти"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
