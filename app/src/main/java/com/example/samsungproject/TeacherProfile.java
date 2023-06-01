@@ -42,6 +42,11 @@ public class TeacherProfile extends AppCompatActivity {
 
     public ImageView teacherAvatar;
     String teacherId;
+    String currentTeacherPassword;
+    EditText passwordEditText;
+    EditText newPasswordEditText;
+    EditText repeatPasswordEditText;
+    String serverURl = "https://6784-178-65-47-77.ngrok-free.app/";
     private static final String IMAGE_DIRECTORY = "/img";
     private final int GALLERY = 1, CAMERA = 2;
     String[] activityMenu = {"Профиль", "Классы", "Выход"};
@@ -54,11 +59,11 @@ public class TeacherProfile extends AppCompatActivity {
         requestMultiplePermissions();
 
         teacherId = getIntent().getExtras().get("id").toString();
+        currentTeacherPassword= getIntent().getExtras().get("password").toString();
 
-        EditText password = findViewById(R.id.current_password);
-        EditText newPassword = findViewById(R.id.new_password);
-        EditText repeatPassword = findViewById(R.id.repeat_password);
-        Button changePasswordButton = findViewById(R.id.change_password_btn);
+        passwordEditText = findViewById(R.id.current_password);
+        newPasswordEditText = findViewById(R.id.new_password);
+        repeatPasswordEditText = findViewById(R.id.repeat_password);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, activityMenu);
@@ -88,6 +93,7 @@ public class TeacherProfile extends AppCompatActivity {
 
     public void openClassesListActivity() {
         Intent intent = new Intent(this, ClassesList.class);
+        intent.putExtra("id", teacherId);
         startActivity(intent);
     }
     public void exitProfile() {
@@ -220,4 +226,21 @@ public class TeacherProfile extends AppCompatActivity {
                 .onSameThread()
                 .check();
     }
+
+    public void changeTeacherPassword(View view) {
+        String password = passwordEditText.getText().toString();
+        String newPassword = newPasswordEditText.getText().toString();
+        String repeatPassword = repeatPasswordEditText.getText().toString();
+        if(password != currentTeacherPassword) {
+            Toast.makeText(getApplicationContext(), "Введён неверный пароль", Toast.LENGTH_SHORT).show();
+        } else {
+            if (newPassword != repeatPassword) {
+                Toast.makeText(getApplicationContext(), "Пароли не совпадают", Toast.LENGTH_SHORT).show();
+            } else {
+
+            }
+        }
+    }
+
+
 }

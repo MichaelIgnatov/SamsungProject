@@ -1,7 +1,10 @@
 package com.example.samsungproject;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Path;
 
 public class Student {
@@ -24,16 +27,37 @@ public class Student {
         public int student_id;
     }
 
+    public static class Exams {
+        ArrayList<ExamData> exams;
+    }
+
+    public static class StudentPortfolio {
+        int id;
+        String name;
+        String subject;
+        String file_uuid;
+        String level;
+        String result;
+        String date;
+        String created_at;
+        int student_id;
+    }
+
+    public static class PortfolioAPIFormat {
+        StudentData studentData;
+        ArrayList<StudentPortfolio> arrayList;
+    }
+
     public static class PortfolioData {}
     public interface StudentService {
         @GET("/api/get_student/{login}/{password}")
         Call<StudentData> studentLogin(@Path("login") String login, @Path("password") String password);
 
-        @GET("/api/profile/<string:student_id>")
-        Call<?> profileData(@Path("student_id") String student_id);
+        @GET("/api/profile/{string:student_id}")
+        Call<PortfolioAPIFormat> profileData(@Path("student_id") String student_id);
 
-        @GET("/api/get_exams/<student_id>")
-        Call<?> examsData(@Path("student_id") int id);
+        @GET("/api/get_exams/{student_id}")
+        Call<Exams> examsData(@Path("student_id") int id);
 
 
     }

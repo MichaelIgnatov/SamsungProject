@@ -41,7 +41,11 @@ import java.util.List;
 public class StudentProfile extends AppCompatActivity {
 
     private Button changeStudentAvatar;
+    EditText passwordEditText;
+    EditText newPasswordEditText;
+    EditText repeatPasswordEditText;
     String studentId;
+    String currentStudentPassword;
     public ImageView studentAvatar;
     String serverURl = "https://6784-178-65-47-77.ngrok-free.app/";
     private static final String IMAGE_DIRECTORY = "/img";
@@ -56,12 +60,12 @@ public class StudentProfile extends AppCompatActivity {
         requestMultiplePermissions();
 
         studentId = getIntent().getExtras().get("id").toString();
+        currentStudentPassword = getIntent().getExtras().get("password").toString();
 
-        Button changeStudentAvatar = findViewById(R.id.change_avatar_btn);
-        EditText password = findViewById(R.id.current_password);
-        EditText newPassword = findViewById(R.id.new_password);
-        EditText repeatPassword = findViewById(R.id.repeat_password);
-        Button changePasswordButton = findViewById(R.id.change_password_btn);
+        changeStudentAvatar = findViewById(R.id.change_avatar_btn);
+        passwordEditText = findViewById(R.id.current_password);
+        newPasswordEditText = findViewById(R.id.new_password);
+        repeatPasswordEditText = findViewById(R.id.repeat_password);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, activityMenu);
@@ -224,8 +228,18 @@ public class StudentProfile extends AppCompatActivity {
     }
 
     public void changeStudentPassword(View view) {
+        String password = passwordEditText.getText().toString();
+        String newPassword = newPasswordEditText.getText().toString();
+        String repeatPassword = repeatPasswordEditText.getText().toString();
+                if(password != currentStudentPassword) {
+                    Toast.makeText(getApplicationContext(), "Введён неверный пароль", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (newPassword != repeatPassword) {
+                        Toast.makeText(getApplicationContext(), "Пароли не совпадают", Toast.LENGTH_SHORT).show();
+                    } else {
 
-
+                    }
+                }
     }
 
 }

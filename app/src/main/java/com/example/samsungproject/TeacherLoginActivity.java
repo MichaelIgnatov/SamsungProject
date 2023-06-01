@@ -20,7 +20,6 @@ public class    TeacherLoginActivity extends AppCompatActivity {
     EditText teacherPasswordEditText;
     EditText teacherLoginEditText;
     int teacherId;
-    boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +54,12 @@ public class    TeacherLoginActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(getApplicationContext(), "Вход выполнен", Toast.LENGTH_SHORT).show();
                     teacherId = response.body().id;
-                    flag = true;
+                    String teacherPassword = response.body().password;
+                    String headerInfo = response.headers().get("Set-cookie");
+                    Intent intent = new Intent(getApplicationContext(), TeacherProfile.class);
+                    intent.putExtra("id", teacherId);
+                    intent.putExtra("password", teacherPassword);
+                    startActivity(intent);
                 } else{
                     Toast.makeText(getApplicationContext(), "Что-то пошло не так", Toast.LENGTH_SHORT).show();
                 }
@@ -67,11 +71,5 @@ public class    TeacherLoginActivity extends AppCompatActivity {
 
             }
         });
-
-        if(flag == true) {
-            Intent intent = new Intent(this, TeacherProfile.class);
-            intent.putExtra("id", teacherId);
-            startActivity(intent);
-        }
     }
 }

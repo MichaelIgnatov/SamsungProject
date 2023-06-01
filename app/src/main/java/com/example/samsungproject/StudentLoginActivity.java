@@ -16,7 +16,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class StudentLoginActivity extends AppCompatActivity {
     Student studentObj;
-    boolean flag = false;
     int studentId;
     EditText studentPasswordTextedit;
     EditText studentLoginTextedit;
@@ -52,7 +51,12 @@ public class StudentLoginActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(getApplicationContext(), "Вход выполнен", Toast.LENGTH_SHORT).show();
                     studentId = response.body().id;
-                    flag = true;
+                    String studentPassword = response.body().password;
+                    String headerInfo = response.headers().get("Set-cookie");
+                    Intent intent = new Intent(getApplicationContext(), StudentProfile.class);
+                    intent.putExtra("id", studentId);
+                    intent.putExtra("password", studentPassword);
+                    startActivity(intent);
                 } else{
                     Toast.makeText(getApplicationContext(), "Что-то пошло не так", Toast.LENGTH_SHORT).show();
                 }
@@ -64,11 +68,5 @@ public class StudentLoginActivity extends AppCompatActivity {
 
             }
         });
-
-        if(flag == true) {
-            Intent intent = new Intent(this, StudentProfile.class);
-            intent.putExtra("id", studentId);
-            startActivity(intent);
-        }
     }
 }
