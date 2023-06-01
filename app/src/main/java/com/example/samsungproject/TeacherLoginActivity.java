@@ -28,8 +28,6 @@ public class    TeacherLoginActivity extends AppCompatActivity {
 
         teacherLoginEditText = findViewById(R.id.teacher_login);
         teacherPasswordEditText = findViewById(R.id.teacher_password);
-        Button teacherAuthorizationButton = findViewById(R.id.login);
-        Button backButton = findViewById(R.id.back);
     }
 
     public void backToActivity(View view) {

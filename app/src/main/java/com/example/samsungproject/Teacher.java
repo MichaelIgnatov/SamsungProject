@@ -9,6 +9,8 @@ import retrofit2.http.Path;
 
 public class Teacher {
 
+    // @Header("Cookie") String cookie,
+
     public static class TeacherData {
         public int id;
         public String name;

@@ -14,7 +14,7 @@ public class ViewingStudentsProfile extends AppCompatActivity {
     }
 
     public void backActivity(View view) {
-        Intent intent = new Intent(this, GroupStudents.class);
+        Intent intent = new Intent(this, ViewingClass.class);
         startActivity(intent);
     }
 }

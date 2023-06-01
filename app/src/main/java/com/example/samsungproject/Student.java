@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public class Student {
@@ -59,6 +60,10 @@ public class Student {
         @GET("/api/get_exams/{student_id}")
         Call<Exams> examsData(@Path("student_id") int id);
 
+        @POST("/api/add_portfolio")
+        Call<?> addPortfolio();
 
+        @POST("/api/delete_student/<student_id>")
+        Call<?> deleteStudent();
     }
 }
