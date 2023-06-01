@@ -42,6 +42,7 @@ public class StudentProfile extends AppCompatActivity {
 
     private Button changeStudentAvatar;
     public ImageView studentAvatar;
+    String serverURl = "https://6784-178-65-47-77.ngrok-free.app/";
     private static final String IMAGE_DIRECTORY = "/img";
     private final int GALLERY = 1, CAMERA = 2;
     String[] activityMenu = {"Профиль", "Портфолио", "Результаты ПА", "Выход"};
@@ -95,10 +96,10 @@ public class StudentProfile extends AppCompatActivity {
     }
     public void showPictureDialog(View view){
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
-        pictureDialog.setTitle("Select Action");
+        pictureDialog.setTitle("Выберите действие");
         String[] pictureDialogItems = {
-                "Select photo from gallery",
-                "Capture photo from camera" };
+                "Выбрать изображение из галереи",
+                "Использовать камеру" };
         pictureDialog.setItems(pictureDialogItems,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -142,12 +143,12 @@ public class StudentProfile extends AppCompatActivity {
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
                     String path = saveImage(bitmap);
-                    Toast.makeText(StudentProfile.this, "Image Saved!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StudentProfile.this, "Изображение сохранено!", Toast.LENGTH_SHORT).show();
                     studentAvatar.setImageBitmap(bitmap);
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(StudentProfile.this, "Failed!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StudentProfile.this, "Ошибка!", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -155,7 +156,7 @@ public class StudentProfile extends AppCompatActivity {
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             studentAvatar.setImageBitmap(thumbnail);
             saveImage(thumbnail);
-            Toast.makeText(StudentProfile.this, "Image Saved!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(StudentProfile.this, "Изображение сохранено!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -217,6 +218,10 @@ public class StudentProfile extends AppCompatActivity {
                 })
                 .onSameThread()
                 .check();
+    }
+
+    public void changeStudentPassword(View view) {
+
     }
 
 }

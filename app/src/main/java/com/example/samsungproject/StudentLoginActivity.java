@@ -16,8 +16,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class StudentLoginActivity extends AppCompatActivity {
     Student studentObj;
-    String login;
-    String password;
     boolean flag = false;
     EditText studentPasswordTextedit;
     EditText studentLoginTextedit;
@@ -37,8 +35,8 @@ public class StudentLoginActivity extends AppCompatActivity {
     }
 
     public void studentLoginClick(View view) {
-        login = studentLoginTextedit.getText().toString();
-        password = studentPasswordTextedit.getText().toString();
+        String login = studentLoginTextedit.getText().toString();
+        String password = studentPasswordTextedit.getText().toString();
 
         String serverURl = "https://6784-178-65-47-77.ngrok-free.app/";
         Retrofit retrofit = new Retrofit.Builder().baseUrl(serverURl)
@@ -49,8 +47,8 @@ public class StudentLoginActivity extends AppCompatActivity {
         Call<Student.StudentData> call = studentService.studentLogin(login, password);
         call.enqueue(new Callback<Student.StudentData>() {
             @Override
-            public void onResponse(Call<Student.StudentData> call, Response<Student.StudentData> response) {
-                if (response.isSuccessful() && response.body() != null) {
+            public void onResponse(Call<Student.StudentData> call, Response<Student.StudentData> responseStudentLogin) {
+                if (responseStudentLogin.isSuccessful() && responseStudentLogin.body() != null) {
                     Toast.makeText(getApplicationContext(), "Вход выполнен", Toast.LENGTH_SHORT).show();
                     flag = true;
                 } else{

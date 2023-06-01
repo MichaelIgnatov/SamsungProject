@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Portfolio extends AppCompatActivity {
 
-    String[] activityMenu = {"Профиль", "Портфолио", "Выход"};
+    String[] activityMenu = {"Профиль", "Портфолио", "Результаты ПА", "Выход"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class Portfolio extends AppCompatActivity {
                 if(position == 0) {
                     openStudentProfile();
                 }
-                if(position == 2) {
+                if(position == 3) {
                     exitProfile();
                 }
             }
@@ -48,6 +48,7 @@ public class Portfolio extends AppCompatActivity {
         Intent intent = new Intent(this, StudentProfile.class);
         startActivity(intent);
     }
+
     public void exitProfile() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
