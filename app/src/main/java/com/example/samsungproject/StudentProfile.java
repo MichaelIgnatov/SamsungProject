@@ -41,6 +41,7 @@ import java.util.List;
 public class StudentProfile extends AppCompatActivity {
 
     private Button changeStudentAvatar;
+    String studentId;
     public ImageView studentAvatar;
     String serverURl = "https://6784-178-65-47-77.ngrok-free.app/";
     private static final String IMAGE_DIRECTORY = "/img";
@@ -53,6 +54,8 @@ public class StudentProfile extends AppCompatActivity {
         setContentView(R.layout.activity_student_profile);
 
         requestMultiplePermissions();
+
+        studentId = getIntent().getExtras().get("id").toString();
 
         Button changeStudentAvatar = findViewById(R.id.change_avatar_btn);
         EditText password = findViewById(R.id.current_password);
@@ -221,6 +224,7 @@ public class StudentProfile extends AppCompatActivity {
     }
 
     public void changeStudentPassword(View view) {
+
 
     }
 

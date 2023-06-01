@@ -17,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class StudentLoginActivity extends AppCompatActivity {
     Student studentObj;
     boolean flag = false;
+    int studentId;
     EditText studentPasswordTextedit;
     EditText studentLoginTextedit;
 
@@ -47,9 +48,10 @@ public class StudentLoginActivity extends AppCompatActivity {
         Call<Student.StudentData> call = studentService.studentLogin(login, password);
         call.enqueue(new Callback<Student.StudentData>() {
             @Override
-            public void onResponse(Call<Student.StudentData> call, Response<Student.StudentData> responseStudentLogin) {
-                if (responseStudentLogin.isSuccessful() && responseStudentLogin.body() != null) {
+            public void onResponse(Call<Student.StudentData> call, Response<Student.StudentData> response) {
+                if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(getApplicationContext(), "Вход выполнен", Toast.LENGTH_SHORT).show();
+                    studentId = response.body().id;
                     flag = true;
                 } else{
                     Toast.makeText(getApplicationContext(), "Что-то пошло не так", Toast.LENGTH_SHORT).show();
@@ -65,6 +67,7 @@ public class StudentLoginActivity extends AppCompatActivity {
 
         if(flag == true) {
             Intent intent = new Intent(this, StudentProfile.class);
+            intent.putExtra("id", studentId);
             startActivity(intent);
         }
     }

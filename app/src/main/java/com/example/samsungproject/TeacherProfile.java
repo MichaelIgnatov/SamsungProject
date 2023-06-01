@@ -41,6 +41,7 @@ import java.util.List;
 public class TeacherProfile extends AppCompatActivity {
 
     public ImageView teacherAvatar;
+    String teacherId;
     private static final String IMAGE_DIRECTORY = "/img";
     private final int GALLERY = 1, CAMERA = 2;
     String[] activityMenu = {"Профиль", "Классы", "Выход"};
@@ -51,6 +52,8 @@ public class TeacherProfile extends AppCompatActivity {
         setContentView(R.layout.activity_teacher_profile);
 
         requestMultiplePermissions();
+
+        teacherId = getIntent().getExtras().get("id").toString();
 
         EditText password = findViewById(R.id.current_password);
         EditText newPassword = findViewById(R.id.new_password);

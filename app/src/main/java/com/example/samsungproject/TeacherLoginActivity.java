@@ -19,6 +19,7 @@ public class    TeacherLoginActivity extends AppCompatActivity {
 
     EditText teacherPasswordEditText;
     EditText teacherLoginEditText;
+    int teacherId;
     boolean flag = false;
 
     @Override
@@ -53,6 +54,7 @@ public class    TeacherLoginActivity extends AppCompatActivity {
             public void onResponse(Call<Teacher.TeacherData> call, Response<Teacher.TeacherData> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(getApplicationContext(), "Вход выполнен", Toast.LENGTH_SHORT).show();
+                    teacherId = response.body().id;
                     flag = true;
                 } else{
                     Toast.makeText(getApplicationContext(), "Что-то пошло не так", Toast.LENGTH_SHORT).show();
@@ -68,6 +70,7 @@ public class    TeacherLoginActivity extends AppCompatActivity {
 
         if(flag == true) {
             Intent intent = new Intent(this, TeacherProfile.class);
+            intent.putExtra("id", teacherId);
             startActivity(intent);
         }
     }
