@@ -36,7 +36,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.List;
@@ -67,8 +66,10 @@ public class TeacherProfile extends AppCompatActivity {
         passwordEditText = findViewById(R.id.current_password);
         newPasswordEditText = findViewById(R.id.new_password);
         repeatPasswordEditText = findViewById(R.id.repeat_password);
-        TextView textView = findViewById(R.id.teacher_data);
-        textView.setText(TeacherLoginActivity.teacherData.post);
+        TextView nameTextView = findViewById(R.id.teacher_name);
+        nameTextView.setText(TeacherLoginActivity.teacherData.name);
+        TextView postTextView = findViewById(R.id.teacher_post);
+        postTextView.setText(TeacherLoginActivity.teacherData.post);
         teacherAvatar = findViewById(R.id.user_avatar);
 
         new Thread(){
@@ -79,8 +80,6 @@ public class TeacherProfile extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Log.i("!!!", serverURl + TeacherLoginActivity.teacherData.avatar);
-                            Log.i("!!!", bitmap.toString());
                             teacherAvatar.setImageBitmap(bitmap);
                         }
                     });

@@ -17,11 +17,11 @@ public class PortfolioElem extends AppCompatActivity {
         TextView portfolioResult = findViewById(R.id.result_text_view);
         TextView portfolioDate = findViewById(R.id.date_text_veiw);
 
-        portfolioName.setText(Portfolio.currentPortfolio.name);
-        portfolioSubject.setText(Portfolio.currentPortfolio.subject);
-        portfolioLevel.setText(Portfolio.currentPortfolio.level);
-        portfolioResult.setText(Portfolio.currentPortfolio.result);
-        portfolioDate.setText(Portfolio.currentPortfolio.date);
+        portfolioName.setText("Название: " + Portfolio.currentPortfolio.name);
+        portfolioSubject.setText("Предмет: " + Portfolio.currentPortfolio.subject);
+        portfolioLevel.setText("Уровень мероприятия: " + Portfolio.currentPortfolio.level);
+        portfolioResult.setText("Результат: " + Portfolio.currentPortfolio.result);
+        portfolioDate.setText("Дата: " + Portfolio.currentPortfolio.date);
 
     }
 

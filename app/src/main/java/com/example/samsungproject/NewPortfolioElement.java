@@ -32,7 +32,7 @@ public class NewPortfolioElement extends AppCompatActivity {
             "Всероссийский", "Международный"};
     String[] resultsList = {"Победитель", "Участник", "Призёр", "1 место", "2 место", "3 место"};
     ActivityResultLauncher<Intent> resultLauncher;
-    String serverURl = "https://7235-83-171-69-39.ngrok-free.app/";
+    String serverURl = "https://b991-178-65-47-77.ngrok-free.app/";
     EditText portfolioTitle;
     EditText portfolioSubject;
     Spinner spinner;

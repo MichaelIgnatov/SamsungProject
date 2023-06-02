@@ -22,7 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ViewingClass extends AppCompatActivity {
-    String serverURl = "https://7235-83-171-69-39.ngrok-free.app/";
+    String serverURl = "https://b991-178-65-47-77.ngrok-free.app/";
     int teacherId;
     ListView studentList;
     ArrayList<Student.StudentData> studentsList;
@@ -37,6 +37,11 @@ public class ViewingClass extends AppCompatActivity {
         studentList = findViewById(R.id.list_view);
         studentsList = new ArrayList<Student.StudentData>();
         stringClassesList = new ArrayList<String>();
+
+        studentsListAdapter = new ArrayAdapter<String>(
+                getApplicationContext(), android.R.layout.simple_list_item_1,
+                stringClassesList);
+        studentList.setAdapter(studentsListAdapter);
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(serverURl)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -56,11 +61,7 @@ public class ViewingClass extends AppCompatActivity {
                         for (int i = 0; i < studentsList.size(); i++) {
                             stringClassesList.add(i, studentsList.get(i).name);
                         }
-                        studentsListAdapter = new ArrayAdapter<String>(
-                                getApplicationContext(), android.R.layout.simple_list_item_1,
-                                stringClassesList);
-
-                        studentList.setAdapter(studentsListAdapter);
+                        studentsListAdapter.notifyDataSetChanged();
                     }
                 }
             }
@@ -127,8 +128,6 @@ public class ViewingClass extends AppCompatActivity {
 
                     }
                 });
-                stringClassesList.add(studentName.getText().toString());
-                studentsListAdapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
         });
@@ -143,5 +142,8 @@ public class ViewingClass extends AppCompatActivity {
 
         dialog.setCancelable(false);
         dialog.show();
+
+        stringClassesList.add(studentName.getText().toString());
+        studentsListAdapter.notifyDataSetChanged();
     }
 }

@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -68,6 +69,10 @@ public class StudentProfile extends AppCompatActivity {
         newPasswordEditText = findViewById(R.id.new_password);
         repeatPasswordEditText = findViewById(R.id.repeat_password);
         userAvatar = findViewById(R.id.user_avatar);
+        TextView studentData = findViewById(R.id.student_data);
+        studentData.setText(StudentLoginActivity.studentData.name);
+
+
 
         //if(StudentLoginActivity.studentData.avatar != 0) {
             //Bitmap bitmap = StudentLoginActivity.studentData.avatar

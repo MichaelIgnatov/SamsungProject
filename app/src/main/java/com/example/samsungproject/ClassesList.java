@@ -40,6 +40,10 @@ public class ClassesList extends AppCompatActivity {
         classes = new ArrayList<Teacher.Group>();
         arrayList = new ArrayList<String>();
 
+        arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                android.R.layout.simple_list_item_1, arrayList);
+        groupList.setAdapter(arrayAdapter);
+
         Retrofit retrofit = new Retrofit.Builder().baseUrl(serverURl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -56,9 +60,7 @@ public class ClassesList extends AppCompatActivity {
                         for (int i = 0; i < classes.size(); i++) {
                             arrayList.add(i, classes.get(i).name);
                         }
-                        arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                                android.R.layout.simple_list_item_1, arrayList);
-                        groupList.setAdapter(arrayAdapter);
+                        arrayAdapter.notifyDataSetChanged();
                     }
                 }
             }

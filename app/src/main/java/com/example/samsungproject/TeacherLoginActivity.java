@@ -2,7 +2,6 @@ package com.example.samsungproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -40,7 +39,7 @@ public class    TeacherLoginActivity extends AppCompatActivity {
         String login = teacherLoginEditText.getText().toString();
         String password = teacherPasswordEditText.getText().toString();
 
-        String serverURl = "https://7235-83-171-69-39.ngrok-free.app/";
+        String serverURl = "https://b991-178-65-47-77.ngrok-free.app/";
         Retrofit retrofit = new Retrofit.Builder().baseUrl(serverURl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
