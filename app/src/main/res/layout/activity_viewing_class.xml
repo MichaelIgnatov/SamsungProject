@@ -30,7 +30,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/add_sudent_btn"
+        android:id="@+id/add_student_btn"
         android:layout_width="202dp"
         android:layout_height="49dp"
         android:onClick="openAddStudentDialog"

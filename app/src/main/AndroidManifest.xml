@@ -63,7 +63,11 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".GroupStudents"
+            android:name=".ViewingClass"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".PortfolioElem"
             android:screenOrientation="portrait">
         </activity>
     </application>

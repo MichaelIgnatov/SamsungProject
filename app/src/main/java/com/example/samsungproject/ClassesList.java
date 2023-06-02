@@ -12,33 +12,74 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ClassesList extends AppCompatActivity {
 
     int teacherId;
-    String serverURl = "https://6824-178-65-47-77.ngrok-free.app/";
+    String serverURl = "https://7235-83-171-69-39.ngrok-free.app/";
     String[] activityMenu = {"Профиль", "Классы", "Выход"};
+    ArrayList<Teacher.Group> classes;
+    ArrayList<String> arrayList;
+    ArrayAdapter<String> arrayAdapter;
+    ListView groupList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classes_list);
 
-        ListView groupList = findViewById(R.id.group_list);
+        groupList = findViewById(R.id.group_list);
         teacherId = TeacherLoginActivity.teacherData.id;
+        classes = new ArrayList<Teacher.Group>();
+        arrayList = new ArrayList<String>();
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(serverURl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Teacher.TeacherService teacherService = retrofit.create(Teacher.TeacherService.class);
 
+        Call<Teacher.Groups> call = teacherService.getGroups(teacherId,
+                TeacherLoginActivity.headerInfo);
+        call.enqueue(new Callback<Teacher.Groups>() {
+            @Override
+            public void onResponse(Call<Teacher.Groups> call, Response<Teacher.Groups> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    classes = response.body().groupsList;
+                    if(classes != null) {
+                        for (int i = 0; i < classes.size(); i++) {
+                            arrayList.add(i, classes.get(i).name);
+                        }
+                        arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                                android.R.layout.simple_list_item_1, arrayList);
+                        groupList.setAdapter(arrayAdapter);
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Teacher.Groups> call, Throwable t) {
 
-        // ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                //android.R.layout.simple_list_item_1, );
+            }
+        });
 
-        //groupList.setAdapter(adapter);
+        groupList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), ViewingClass.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, activityMenu);

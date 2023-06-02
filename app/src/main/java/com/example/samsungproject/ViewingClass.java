@@ -22,10 +22,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ViewingClass extends AppCompatActivity {
-    String serverURl = "https://6824-178-65-47-77.ngrok-free.app/";
+    String serverURl = "https://7235-83-171-69-39.ngrok-free.app/";
     int teacherId;
     ListView studentList;
-    ArrayList<Student.StudentData> classes;
+    ArrayList<Student.StudentData> studentsList;
     ArrayList<String> stringClassesList;
     ArrayAdapter<String> studentsListAdapter;
 
@@ -33,9 +33,10 @@ public class ViewingClass extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewing_class);
-
         teacherId = TeacherLoginActivity.teacherData.id;
         studentList = findViewById(R.id.list_view);
+        studentsList = new ArrayList<Student.StudentData>();
+        stringClassesList = new ArrayList<String>();
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(serverURl)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -50,15 +51,17 @@ public class ViewingClass extends AppCompatActivity {
                                    Response<Teacher.GroupStudentsList> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     String headerInfo = response.headers().get("Set-cookie");
-                    classes = response.body().students;
-                    for(int i = 0; i < classes.size(); i++) {
-                        stringClassesList.add(i, classes.get(i).name);
-                    }
-                    studentsListAdapter = new ArrayAdapter<String>(
-                            getApplicationContext(), R.layout.activity_viewing_class,
-                            stringClassesList);
+                    studentsList = response.body().students;
+                    if(studentsList != null) {
+                        for (int i = 0; i < studentsList.size(); i++) {
+                            stringClassesList.add(i, studentsList.get(i).name);
+                        }
+                        studentsListAdapter = new ArrayAdapter<String>(
+                                getApplicationContext(), android.R.layout.simple_list_item_1,
+                                stringClassesList);
 
-                    studentList.setAdapter(studentsListAdapter);
+                        studentList.setAdapter(studentsListAdapter);
+                    }
                 }
             }
 
@@ -114,8 +117,6 @@ public class ViewingClass extends AppCompatActivity {
                     public void onResponse(Call<Teacher.NewStudentData> call, Response<Teacher.NewStudentData> response) {
                         if (response.isSuccessful() && response.body() != null) {
                             Toast.makeText(getApplicationContext(), "Ученик добавлен", Toast.LENGTH_SHORT).show();
-                            stringClassesList.add(studentName.getText().toString());
-                            studentsListAdapter.notifyDataSetChanged();
                         } else {
                             Toast.makeText(getApplicationContext(), "Что-то пошло не так", Toast.LENGTH_SHORT).show();
                         }
@@ -126,6 +127,8 @@ public class ViewingClass extends AppCompatActivity {
 
                     }
                 });
+                stringClassesList.add(studentName.getText().toString());
+                studentsListAdapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
         });

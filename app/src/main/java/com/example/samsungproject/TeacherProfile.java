@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +36,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.List;
 
@@ -45,7 +49,7 @@ public class TeacherProfile extends AppCompatActivity {
     EditText passwordEditText;
     EditText newPasswordEditText;
     EditText repeatPasswordEditText;
-    String serverURl = "https://6784-178-65-47-77.ngrok-free.app/";
+    String serverURl = "https://7235-83-171-69-39.ngrok-free.app/";
     private static final String IMAGE_DIRECTORY = "/img";
     private final int GALLERY = 1, CAMERA = 2;
     String[] activityMenu = {"Профиль", "Классы", "Выход"};
@@ -63,6 +67,28 @@ public class TeacherProfile extends AppCompatActivity {
         passwordEditText = findViewById(R.id.current_password);
         newPasswordEditText = findViewById(R.id.new_password);
         repeatPasswordEditText = findViewById(R.id.repeat_password);
+        TextView textView = findViewById(R.id.teacher_data);
+        textView.setText(TeacherLoginActivity.teacherData.post);
+        teacherAvatar = findViewById(R.id.user_avatar);
+
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    Bitmap bitmap = loadImage(serverURl + TeacherLoginActivity.teacherData.avatar);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.i("!!!", serverURl + TeacherLoginActivity.teacherData.avatar);
+                            Log.i("!!!", bitmap.toString());
+                            teacherAvatar.setImageBitmap(bitmap);
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, activityMenu);
@@ -239,6 +265,12 @@ public class TeacherProfile extends AppCompatActivity {
 
             }
         }
+    }
+
+    public Bitmap loadImage(String s) throws IOException {
+        URL url = new URL(s);
+
+        return BitmapFactory.decodeStream(url.openStream());
     }
 
 

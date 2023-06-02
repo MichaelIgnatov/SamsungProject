@@ -2,6 +2,7 @@ package com.example.samsungproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,12 +20,13 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Portfolio extends AppCompatActivity {
-    String studentId;
+    int studentId;
     public static Student.StudentPortfolio currentPortfolio;
     ArrayList<Student.StudentPortfolio> studentPortfolioList;
+    ArrayAdapter<String> portfolioListAdapter;
     ListView listView;
     ArrayList<String> portfolioLists;
-    String serverURl = "https://6824-178-65-47-77.ngrok-free.app/";
+    String serverURl = "https://7235-83-171-69-39.ngrok-free.app/";
     String[] activityMenu = {"Профиль", "Портфолио", "Результаты ПА", "Выход"};
 
     @Override
@@ -32,8 +34,15 @@ public class Portfolio extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portfolio);
 
-        studentId = Integer.toString(StudentLoginActivity.studentData.id);
+        studentId = StudentLoginActivity.studentData.id;
         listView = findViewById(R.id.portfolio_list);
+        studentPortfolioList = new ArrayList<>();
+        portfolioLists = new ArrayList<>();
+        currentPortfolio = new Student.StudentPortfolio();
+
+        portfolioListAdapter = new ArrayAdapter<>(
+                getApplicationContext(), android.R.layout.simple_list_item_1, portfolioLists);
+        listView.setAdapter(portfolioListAdapter);
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(serverURl)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -46,15 +55,16 @@ public class Portfolio extends AppCompatActivity {
             @Override
             public void onResponse(Call<Student.PortfolioAPIFormat> call,
                                    Response<Student.PortfolioAPIFormat> response) {
+                Log.i("1", String.valueOf(portfolioLists.size()));
                 if (response.isSuccessful() && response.body() != null) {
-                    studentPortfolioList = response.body().arrayList;
-                    for(int i = 0; i < studentPortfolioList.size(); i++) {
-                        portfolioLists.add(i, studentPortfolioList.get(i).name);
+                    studentPortfolioList = response.body().portfolio;
+                    if (studentPortfolioList != null) {
+                        for (int i = 0; i < studentPortfolioList.size(); i++) {
+                            portfolioLists.add(i, studentPortfolioList.get(i).name);
+                        }
+                        Log.i("!", String.valueOf(portfolioLists.size()));
+                        portfolioListAdapter.notifyDataSetChanged();
                     }
-                    ArrayAdapter<String> portfolioListAdapter = new ArrayAdapter<String>(
-                            getApplicationContext(), R.layout.activity_portfolio, portfolioLists);
-
-                    listView.setAdapter(portfolioListAdapter);
                 }
             }
 

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -19,23 +20,37 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class NewPortfolioElement extends AppCompatActivity {
 
     String[] eventLevelList = {"Школьный", "Муниципальный", "Региональный",
             "Всероссийский", "Международный"};
     String[] resultsList = {"Победитель", "Участник", "Призёр", "1 место", "2 место", "3 место"};
     ActivityResultLauncher<Intent> resultLauncher;
+    String serverURl = "https://7235-83-171-69-39.ngrok-free.app/";
+    EditText portfolioTitle;
+    EditText portfolioSubject;
+    Spinner spinner;
+    Spinner spinner2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_elem_portfolio);
 
+        portfolioTitle = findViewById(R.id.title);
+        portfolioSubject = findViewById(R.id.subject);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, eventLevelList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        Spinner spinner = findViewById(R.id.event_level_list);
+        spinner = findViewById(R.id.event_level_list);
         spinner.setAdapter(adapter);
         spinner.setPrompt("Title");
         spinner.setSelection(0);
@@ -53,7 +68,7 @@ public class NewPortfolioElement extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, resultsList);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        Spinner spinner2 = findViewById(R.id.results_list);
+        spinner2 = findViewById(R.id.results_list);
         spinner2.setAdapter(adapter2);
         spinner2.setPrompt("Title");
         spinner2.setSelection(0);
@@ -72,8 +87,7 @@ public class NewPortfolioElement extends AppCompatActivity {
                         .StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
-                    public void onActivityResult(
-                            ActivityResult result) {
+                    public void onActivityResult(ActivityResult result) {
                         Intent data = result.getData();
                         // проверьте состояние
                         if (data != null) {
@@ -148,6 +162,34 @@ public class NewPortfolioElement extends AppCompatActivity {
     }
 
     public void addNewElemPortfolio(View view) {
+        Student.StudentPortfolio newPortfolio = new Student.StudentPortfolio();
+        newPortfolio.name = portfolioTitle.getText().toString();
+        newPortfolio.subject = portfolioSubject.getText().toString();
+        newPortfolio.level = spinner.getPrompt().toString();
+        newPortfolio.result = spinner2.getPrompt().toString();
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(serverURl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Student.StudentService studentService = retrofit.create(Student.StudentService.class);
+
+        Call<Student.StudentPortfolio> call = studentService.addPortfolio(newPortfolio, serverURl);
+        call.enqueue(new Callback<Student.StudentPortfolio>() {
+            @Override
+            public void onResponse(Call<Student.StudentPortfolio> call, Response<Student.StudentPortfolio> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(getApplicationContext(), "Портфолио добавленно", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Student.StudentPortfolio> call, Throwable t) {
+
+            }
+        });
+
+
+
         Intent intent = new Intent(this, Portfolio.class);
         startActivity(intent);
     }

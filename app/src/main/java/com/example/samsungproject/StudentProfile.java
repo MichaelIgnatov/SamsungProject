@@ -48,7 +48,7 @@ public class StudentProfile extends AppCompatActivity {
     int studentId;
     String currentStudentPassword;
     public ImageView studentAvatar;
-    String serverURl = "https://6824-178-65-47-77.ngrok-free.app/";
+    String serverURl = "https://7235-83-171-69-39.ngrok-free.app/";
     private static final String IMAGE_DIRECTORY = "/img";
     private final int GALLERY = 1, CAMERA = 2;
     String[] activityMenu = {"Профиль", "Портфолио", "Результаты ПА", "Выход"};

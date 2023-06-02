@@ -1,5 +1,7 @@
 package com.example.samsungproject;
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -20,7 +22,7 @@ public class Teacher {
         public String password;
         public String post;
         public String created_at;
-        public byte avatar;
+        public String avatar;
     }
 
     public static class GroupStudentsList {

@@ -3,6 +3,7 @@ package com.example.samsungproject;
 import java.util.ArrayList;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -18,7 +19,7 @@ public class Student {
         public String birth_date;
         public String create_date;
         public int teacher_id;
-        public byte avatar;
+        public String avatar;
     }
 
     public static class ExamData {
@@ -45,8 +46,8 @@ public class Student {
     }
 
     public static class PortfolioAPIFormat {
-        StudentData studentData;
-        ArrayList<StudentPortfolio> arrayList;
+        StudentData student;
+        ArrayList<StudentPortfolio> portfolio;
     }
 
     public static class PortfolioData {}
@@ -54,16 +55,16 @@ public class Student {
         @GET("/api/get_student/{login}/{password}")
         Call<StudentData> studentLogin(@Path("login") String login, @Path("password") String password);
 
-        @GET("/api/profile/{string:student_id}")
-        Call<PortfolioAPIFormat> profileData(@Path("student_id") String student_id, @Header("Cookie") String cookie);
+        @GET("/api/profile/{student_id}")
+        Call<PortfolioAPIFormat> profileData(@Path("student_id") int student_id, @Header("Cookie") String cookie);
 
         @GET("/api/get_exams/{student_id}")
         Call<Exams> examsData(@Path("student_id") int id, @Header("Cookie") String cookie);
 
         @POST("/api/add_portfolio")
-        Call<?> addPortfolio();
+        Call<StudentPortfolio> addPortfolio(@Body StudentPortfolio studentPortfolio, @Header("Cookie") String cookie);
 
-        @POST("/api/delete_student/<student_id>")
+        @POST("/api/delete_student/{student_id}")
         Call<?> deleteStudent();
     }
 }
