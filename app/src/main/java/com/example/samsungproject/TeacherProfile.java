@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -41,7 +40,7 @@ import java.util.List;
 public class TeacherProfile extends AppCompatActivity {
 
     public ImageView teacherAvatar;
-    String teacherId;
+    int teacherId;
     String currentTeacherPassword;
     EditText passwordEditText;
     EditText newPasswordEditText;
@@ -58,8 +57,8 @@ public class TeacherProfile extends AppCompatActivity {
 
         requestMultiplePermissions();
 
-        teacherId = getIntent().getExtras().get("id").toString();
-        currentTeacherPassword= getIntent().getExtras().get("password").toString();
+        teacherId = TeacherLoginActivity.teacherData.id;
+        currentTeacherPassword = TeacherLoginActivity.teacherData.password;
 
         passwordEditText = findViewById(R.id.current_password);
         newPasswordEditText = findViewById(R.id.new_password);

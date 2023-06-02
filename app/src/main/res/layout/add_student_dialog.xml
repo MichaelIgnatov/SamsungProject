@@ -9,6 +9,7 @@
         android:hint="Введите ФИО ученика"
         android:layout_width="256dp"
         android:layout_height="50dp"
+        android:id="@+id/new_student_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

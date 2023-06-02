@@ -9,22 +9,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ClassesList extends AppCompatActivity {
 
-    String teacherId;
-    String serverURl = "https://6784-178-65-47-77.ngrok-free.app/";
+    int teacherId;
+    String serverURl = "https://6824-178-65-47-77.ngrok-free.app/";
     String[] activityMenu = {"Профиль", "Классы", "Выход"};
 
     @Override
@@ -33,12 +27,13 @@ public class ClassesList extends AppCompatActivity {
         setContentView(R.layout.activity_classes_list);
 
         ListView groupList = findViewById(R.id.group_list);
-        teacherId = getIntent().getExtras().get("id").toString();
+        teacherId = TeacherLoginActivity.teacherData.id;
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(serverURl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Teacher.TeacherService teacherService = retrofit.create(Teacher.TeacherService.class);
+
 
         // ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 //android.R.layout.simple_list_item_1, );

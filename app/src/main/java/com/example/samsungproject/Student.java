@@ -55,10 +55,10 @@ public class Student {
         Call<StudentData> studentLogin(@Path("login") String login, @Path("password") String password);
 
         @GET("/api/profile/{string:student_id}")
-        Call<PortfolioAPIFormat> profileData(@Path("student_id") String student_id);
+        Call<PortfolioAPIFormat> profileData(@Path("student_id") String student_id, @Header("Cookie") String cookie);
 
         @GET("/api/get_exams/{student_id}")
-        Call<Exams> examsData(@Path("student_id") int id);
+        Call<Exams> examsData(@Path("student_id") int id, @Header("Cookie") String cookie);
 
         @POST("/api/add_portfolio")
         Call<?> addPortfolio();

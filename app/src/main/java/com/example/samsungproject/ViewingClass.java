@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,17 +22,19 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ViewingClass extends AppCompatActivity {
-    String serverURl = "https://6784-178-65-47-77.ngrok-free.app/";
-    String teacherId;
+    String serverURl = "https://6824-178-65-47-77.ngrok-free.app/";
+    int teacherId;
     ListView studentList;
     ArrayList<Student.StudentData> classes;
     ArrayList<String> stringClassesList;
+    ArrayAdapter<String> studentsListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewing_class);
 
+        teacherId = TeacherLoginActivity.teacherData.id;
         studentList = findViewById(R.id.list_view);
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(serverURl)
@@ -38,17 +42,19 @@ public class ViewingClass extends AppCompatActivity {
                 .build();
         Teacher.TeacherService teacherService = retrofit.create(Teacher.TeacherService.class);
 
-        Call<Teacher.Classes> call = teacherService.getClassesData(teacherId);
-        call.enqueue(new Callback<Teacher.Classes>() {
+        Call<Teacher.GroupStudentsList> call = teacherService.getGroupStudentsData(teacherId,
+                TeacherLoginActivity.headerInfo);
+        call.enqueue(new Callback<Teacher.GroupStudentsList>() {
             @Override
-            public void onResponse(Call<Teacher.Classes> call, Response<Teacher.Classes> response) {
+            public void onResponse(Call<Teacher.GroupStudentsList> call,
+                                   Response<Teacher.GroupStudentsList> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     String headerInfo = response.headers().get("Set-cookie");
                     classes = response.body().students;
                     for(int i = 0; i < classes.size(); i++) {
                         stringClassesList.add(i, classes.get(i).name);
                     }
-                    ArrayAdapter<String> studentsListAdapter = new ArrayAdapter<String>(
+                    studentsListAdapter = new ArrayAdapter<String>(
                             getApplicationContext(), R.layout.activity_viewing_class,
                             stringClassesList);
 
@@ -57,7 +63,7 @@ public class ViewingClass extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Teacher.Classes> call, Throwable t) {
+            public void onFailure(Call<Teacher.GroupStudentsList> call, Throwable t) {
 
             }
         });
@@ -85,10 +91,41 @@ public class ViewingClass extends AppCompatActivity {
         final Dialog dialog = new Dialog(ViewingClass.this);
         dialog.setContentView(R.layout.add_student_dialog);
 
+        EditText studentName = findViewById(R.id.new_student_name);
         Button addStudentBtn = dialog.findViewById(R.id.add_student_btn);
         addStudentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Teacher.NewStudentData newStudentData = new Teacher.NewStudentData();
+                newStudentData.student_name = studentName.getText().toString();
+                newStudentData.login = studentName.getText().toString();
+                newStudentData.student_content = "content";
+                newStudentData.password = "123qwe";
+                newStudentData.teacher_id = teacherId;
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(serverURl)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                Teacher.TeacherService teacherService = retrofit.create(Teacher.TeacherService.class);
+
+                Call<Teacher.NewStudentData> call = teacherService.postAddStudent(newStudentData,
+                        TeacherLoginActivity.headerInfo);
+                call.enqueue(new Callback<Teacher.NewStudentData>() {
+                    @Override
+                    public void onResponse(Call<Teacher.NewStudentData> call, Response<Teacher.NewStudentData> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            Toast.makeText(getApplicationContext(), "Ученик добавлен", Toast.LENGTH_SHORT).show();
+                            stringClassesList.add(studentName.getText().toString());
+                            studentsListAdapter.notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Что-то пошло не так", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Teacher.NewStudentData> call, Throwable t) {
+
+                    }
+                });
                 dialog.dismiss();
             }
         });

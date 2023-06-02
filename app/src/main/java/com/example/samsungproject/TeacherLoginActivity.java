@@ -3,7 +3,6 @@ package com.example.samsungproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,7 +18,8 @@ public class    TeacherLoginActivity extends AppCompatActivity {
 
     EditText teacherPasswordEditText;
     EditText teacherLoginEditText;
-    int teacherId;
+    public static String headerInfo;
+    public static Teacher.TeacherData teacherData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class    TeacherLoginActivity extends AppCompatActivity {
         String login = teacherLoginEditText.getText().toString();
         String password = teacherPasswordEditText.getText().toString();
 
-        String serverURl = "https://6784-178-65-47-77.ngrok-free.app/";
+        String serverURl = "https://6824-178-65-47-77.ngrok-free.app/";
         Retrofit retrofit = new Retrofit.Builder().baseUrl(serverURl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -51,12 +51,9 @@ public class    TeacherLoginActivity extends AppCompatActivity {
             public void onResponse(Call<Teacher.TeacherData> call, Response<Teacher.TeacherData> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(getApplicationContext(), "Вход выполнен", Toast.LENGTH_SHORT).show();
-                    teacherId = response.body().id;
-                    String teacherPassword = response.body().password;
-                    String headerInfo = response.headers().get("Set-cookie");
+                    headerInfo = response.headers().get("Set-cookie");
+                    teacherData = response.body();
                     Intent intent = new Intent(getApplicationContext(), TeacherProfile.class);
-                    intent.putExtra("id", teacherId);
-                    intent.putExtra("password", teacherPassword);
                     startActivity(intent);
                 } else{
                     Toast.makeText(getApplicationContext(), "Что-то пошло не так", Toast.LENGTH_SHORT).show();
