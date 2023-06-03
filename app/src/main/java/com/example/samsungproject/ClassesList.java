@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ClassesList extends AppCompatActivity {
 
     int teacherId;
-    String serverURl = "https://4b33-178-65-47-77.ngrok-free.app/";
+    String serverURl = Teacher.serverURl;
     String[] activityMenu = {"Профиль", "Классы", "Выход"};
     ArrayList<Teacher.Group> classes;
     ArrayList<String> arrayList;

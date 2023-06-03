@@ -27,7 +27,7 @@ public class Portfolio extends AppCompatActivity {
     ListView listView;
     public static int listLength;
     ArrayList<String> portfolioLists;
-    String serverURl = "https://4b33-178-65-47-77.ngrok-free.app/";
+    String serverURl = Student.serverURl;
     String[] activityMenu = {"Профиль", "Портфолио", "Результаты ПА", "Выход"};
 
     @Override

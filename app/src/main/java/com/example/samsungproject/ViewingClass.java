@@ -22,7 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ViewingClass extends AppCompatActivity {
-    String serverURl = "https://4b33-178-65-47-77.ngrok-free.app/";
+    String serverURl = Teacher.serverURl;
     int teacherId;
     ListView studentList;
     ArrayList<Student.StudentData> studentsList;

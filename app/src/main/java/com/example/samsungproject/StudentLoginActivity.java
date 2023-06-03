@@ -2,6 +2,7 @@ package com.example.samsungproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,7 +16,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class StudentLoginActivity extends AppCompatActivity {
-    Student studentObj;
     public static Student.StudentData studentData;
     public static String headerInfo;
     EditText studentPasswordTextedit;
@@ -27,7 +27,6 @@ public class StudentLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student_login);
         studentLoginTextedit = findViewById(R.id.student_login);
         studentPasswordTextedit = findViewById(R.id.student_password);
-        studentObj = new Student();
     }
 
     public void backToActivity(View view) {
@@ -39,7 +38,7 @@ public class StudentLoginActivity extends AppCompatActivity {
         String login = studentLoginTextedit.getText().toString();
         String password = studentPasswordTextedit.getText().toString();
 
-        String serverURl = "https://4b33-178-65-47-77.ngrok-free.app/";
+        String serverURl = Student.serverURl;
         Retrofit retrofit = new Retrofit.Builder().baseUrl(serverURl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -53,6 +52,7 @@ public class StudentLoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Вход выполнен", Toast.LENGTH_SHORT).show();
                     headerInfo = response.headers().get("Set-cookie");
                     studentData = response.body();
+                    Log.i("!!!!", studentData.id + "");
                     Intent intent = new Intent(getApplicationContext(), StudentProfile.class);
                     startActivity(intent);
                 } else{

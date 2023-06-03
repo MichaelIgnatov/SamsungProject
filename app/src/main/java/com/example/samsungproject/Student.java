@@ -10,6 +10,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public class Student {
+    public static String serverURl = "https://4b33-178-65-47-77.ngrok-free.app/";
 
     public static class StudentData {
         public int id;

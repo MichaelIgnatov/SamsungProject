@@ -39,7 +39,7 @@ public class    TeacherLoginActivity extends AppCompatActivity {
         String login = teacherLoginEditText.getText().toString();
         String password = teacherPasswordEditText.getText().toString();
 
-        String serverURl = "https://4b33-178-65-47-77.ngrok-free.app/";
+        String serverURl = Teacher.serverURl;
         Retrofit retrofit = new Retrofit.Builder().baseUrl(serverURl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

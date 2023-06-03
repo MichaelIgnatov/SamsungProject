@@ -50,7 +50,7 @@ public class StudentProfile extends AppCompatActivity {
     ImageView studentAvatar;
     int studentId;
     String currentStudentPassword;
-    String serverURl = "https://4b33-178-65-47-77.ngrok-free.app/";
+    String serverURl = Student.serverURl;
     private static final String IMAGE_DIRECTORY = "/img";
     private final int GALLERY = 1, CAMERA = 2;
     String[] activityMenu = {"Профиль", "Портфолио", "Результаты ПА", "Выход"};
@@ -61,10 +61,9 @@ public class StudentProfile extends AppCompatActivity {
         setContentView(R.layout.activity_student_profile);
 
         requestMultiplePermissions();
-        Log.i("!!!!", StudentLoginActivity.studentData.id + "");
 
-        currentStudentPassword = StudentLoginActivity.studentData.password;
         studentId = StudentLoginActivity.studentData.id;
+        currentStudentPassword = StudentLoginActivity.studentData.password;
 
         changeStudentAvatar = findViewById(R.id.change_avatar_btn);
         passwordEditText = findViewById(R.id.current_password);

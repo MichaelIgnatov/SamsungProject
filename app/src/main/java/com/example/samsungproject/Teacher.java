@@ -10,8 +10,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public class Teacher {
-
-    // @Header("Cookie") String cookie,
+    public static String serverURl = "https://4b33-178-65-47-77.ngrok-free.app/";
 
     public static class TeacherData {
         public int id;

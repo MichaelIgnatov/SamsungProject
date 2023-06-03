@@ -48,7 +48,7 @@ public class TeacherProfile extends AppCompatActivity {
     EditText passwordEditText;
     EditText newPasswordEditText;
     EditText repeatPasswordEditText;
-    String serverURl = "https://4b33-178-65-47-77.ngrok-free.app/";
+    String serverURl = Teacher.serverURl;
     private static final String IMAGE_DIRECTORY = "/img";
     private final int GALLERY = 1, CAMERA = 2;
     String[] activityMenu = {"Профиль", "Классы", "Выход"};
@@ -129,8 +129,8 @@ public class TeacherProfile extends AppCompatActivity {
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
         pictureDialog.setTitle("Select Action");
         String[] pictureDialogItems = {
-                "Select photo from gallery",
-                "Capture photo from camera" };
+                "Выбрать изображение из галереи",
+                "Использовать камеру"};
         pictureDialog.setItems(pictureDialogItems,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -174,12 +174,12 @@ public class TeacherProfile extends AppCompatActivity {
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
                     String path = saveImage(bitmap);
-                    Toast.makeText(TeacherProfile.this, "Image Saved!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TeacherProfile.this, "Изображение сохранено!", Toast.LENGTH_SHORT).show();
                     teacherAvatar.setImageBitmap(bitmap);
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(TeacherProfile.this, "Failed!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TeacherProfile.this, "Ошибка!", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -187,7 +187,7 @@ public class TeacherProfile extends AppCompatActivity {
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             teacherAvatar.setImageBitmap(thumbnail);
             saveImage(thumbnail);
-            Toast.makeText(TeacherProfile.this, "Image Saved!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(TeacherProfile.this, "Изображение сохранено!", Toast.LENGTH_SHORT).show();
         }
     }
 
