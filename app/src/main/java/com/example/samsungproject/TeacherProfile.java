@@ -42,7 +42,7 @@ import java.util.List;
 
 public class TeacherProfile extends AppCompatActivity {
 
-    public ImageView teacherAvatar;
+    ImageView teacherAvatar;
     int teacherId;
     String currentTeacherPassword;
     EditText passwordEditText;
@@ -52,6 +52,7 @@ public class TeacherProfile extends AppCompatActivity {
     private static final String IMAGE_DIRECTORY = "/img";
     private final int GALLERY = 1, CAMERA = 2;
     String[] activityMenu = {"Профиль", "Классы", "Выход"};
+    Bitmap localImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,23 +72,28 @@ public class TeacherProfile extends AppCompatActivity {
         TextView postTextView = findViewById(R.id.teacher_post);
         postTextView.setText(TeacherLoginActivity.teacherData.post);
         teacherAvatar = findViewById(R.id.user_avatar);
+        String avatar = TeacherLoginActivity.teacherData.avatar;
 
-        new Thread(){
-            @Override
-            public void run() {
-                try {
-                    Bitmap bitmap = loadImage(serverURl + TeacherLoginActivity.teacherData.avatar);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            teacherAvatar.setImageBitmap(bitmap);
-                        }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
+        if(avatar != null && !avatar.equals("")) {
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        Bitmap bitmap = loadImage(serverURl + TeacherLoginActivity.teacherData.avatar);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                teacherAvatar.setImageBitmap(bitmap);
+                            }
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }.start();
+            }.start();
+        } else if (localImage != null) {
+            teacherAvatar.setImageBitmap(localImage);
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, activityMenu);
@@ -174,6 +180,7 @@ public class TeacherProfile extends AppCompatActivity {
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
                     String path = saveImage(bitmap);
+                    localImage = bitmap;
                     Toast.makeText(TeacherProfile.this, "Изображение сохранено!", Toast.LENGTH_SHORT).show();
                     teacherAvatar.setImageBitmap(bitmap);
 
@@ -186,6 +193,7 @@ public class TeacherProfile extends AppCompatActivity {
         } else if (requestCode == CAMERA) {
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             teacherAvatar.setImageBitmap(thumbnail);
+            localImage = thumbnail;
             saveImage(thumbnail);
             Toast.makeText(TeacherProfile.this, "Изображение сохранено!", Toast.LENGTH_SHORT).show();
         }

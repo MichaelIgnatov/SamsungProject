@@ -55,6 +55,7 @@ public class StudentProfile extends AppCompatActivity {
     int studentId;
     String currentStudentPassword, studentName, avatar;
     String serverURl = Student.serverURl;
+    Bitmap localImage;
 
     private static final String IMAGE_DIRECTORY = "/img";
     private final int GALLERY = 1, CAMERA = 2;
@@ -96,6 +97,8 @@ public class StudentProfile extends AppCompatActivity {
                     }
                 }
             }.start();
+        } else if(localImage != null) {
+            studentAvatar.setImageBitmap(localImage);
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -182,6 +185,7 @@ public class StudentProfile extends AppCompatActivity {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
                     String path = saveImage(bitmap);
                     Toast.makeText(StudentProfile.this, "Изображение сохранено!", Toast.LENGTH_SHORT).show();
+                    localImage = bitmap;
                     studentAvatar.setImageBitmap(bitmap);
 
                 } catch (IOException e) {
@@ -192,6 +196,7 @@ public class StudentProfile extends AppCompatActivity {
 
         } else if (requestCode == CAMERA) {
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+            localImage = thumbnail;
             studentAvatar.setImageBitmap(thumbnail);
             saveImage(thumbnail);
             Toast.makeText(StudentProfile.this, "Изображение сохранено!", Toast.LENGTH_SHORT).show();

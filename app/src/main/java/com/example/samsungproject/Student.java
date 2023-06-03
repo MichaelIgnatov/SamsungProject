@@ -13,6 +13,7 @@ public class Student {
     public static String serverURl = "https://6553-178-65-47-77.ngrok-free.app/";
 
     public static class StudentData {
+
         public int id;
         public String name;
         public String login;
