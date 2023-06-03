@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -19,6 +20,9 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import java.util.Calendar;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,11 +36,14 @@ public class NewPortfolioElement extends AppCompatActivity {
             "Всероссийский", "Международный"};
     String[] resultsList = {"Победитель", "Участник", "Призёр", "1 место", "2 место", "3 место"};
     ActivityResultLauncher<Intent> resultLauncher;
-    String serverURl = "https://b991-178-65-47-77.ngrok-free.app/";
+    String serverURl = "https://4b33-178-65-47-77.ngrok-free.app/";
     EditText portfolioTitle;
     EditText portfolioSubject;
     Spinner spinner;
     Spinner spinner2;
+    TextView currentDate;
+    String sPath;
+    Uri sUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,8 @@ public class NewPortfolioElement extends AppCompatActivity {
 
         portfolioTitle = findViewById(R.id.title);
         portfolioSubject = findViewById(R.id.subject);
+        currentDate = findViewById(R.id.current_date);
+        currentDate.setText("Дата: " + getToday());
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, eventLevelList);
@@ -92,9 +101,9 @@ public class NewPortfolioElement extends AppCompatActivity {
                         // проверьте состояние
                         if (data != null) {
                             // Получить uri PDF
-                            Uri sUri = data.getData();
+                            sUri = data.getData();
                             //  Получить путь PDF
-                            String sPath = sUri.getPath();
+                            sPath = sUri.getPath();
                         }
                     }
                 });
@@ -161,12 +170,26 @@ public class NewPortfolioElement extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private String getToday() {
+        // Сегодняшняя дата в формате MM/DD/YYYY
+        final Calendar calendar = Calendar.getInstance();
+
+        return (new StringBuilder().append(calendar.get(Calendar.MONTH) + 1)
+                .append("/").append(calendar.get(Calendar.DAY_OF_MONTH)).append("/")
+                .append(calendar.get(Calendar.YEAR)).append(" ")).toString();
+    }
+
     public void addNewElemPortfolio(View view) {
         Student.StudentPortfolio newPortfolio = new Student.StudentPortfolio();
         newPortfolio.name = portfolioTitle.getText().toString();
         newPortfolio.subject = portfolioSubject.getText().toString();
         newPortfolio.level = spinner.getPrompt().toString();
         newPortfolio.result = spinner2.getPrompt().toString();
+        newPortfolio.created_at = currentDate.getText().toString();
+        UUID fileUUID = UUID.fromString(sPath);
+        newPortfolio.file_uuid = fileUUID.toString();
+        newPortfolio.student_id = StudentLoginActivity.studentData.id;
+        newPortfolio.id = Portfolio.listLength;
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(serverURl)
                 .addConverterFactory(GsonConverterFactory.create())

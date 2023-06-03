@@ -29,7 +29,7 @@
     <Button
         android:id="@+id/cancel"
         android:layout_width="256dp"
-        android:layout_height="wrap_content"
+        android:layout_height="52dp"
         android:text="Отмена"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

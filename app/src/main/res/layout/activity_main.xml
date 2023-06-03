@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/login_teacher_btn"
-        android:layout_width="215dp"
-        android:layout_height="62dp"
+        android:layout_width="216dp"
+        android:layout_height="60dp"
         android:onClick="teacherLogin"
         android:text="Войти как учитель"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,8 +21,8 @@
 
     <Button
         android:id="@+id/login_student_btn"
-        android:layout_width="212dp"
-        android:layout_height="61dp"
+        android:layout_width="216dp"
+        android:layout_height="60dp"
         android:onClick="studentLogin"
         android:text="Войти как ученик"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,8 +34,8 @@
 
     <Button
         android:id="@+id/user_registration_btn"
-        android:layout_width="212dp"
-        android:layout_height="61dp"
+        android:layout_width="216dp"
+        android:layout_height="60dp"
         android:onClick="userRegistration"
         android:text="Регистрация"
         app:layout_constraintBottom_toBottomOf="parent"

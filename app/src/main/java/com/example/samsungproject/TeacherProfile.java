@@ -48,7 +48,7 @@ public class TeacherProfile extends AppCompatActivity {
     EditText passwordEditText;
     EditText newPasswordEditText;
     EditText repeatPasswordEditText;
-    String serverURl = "https://7235-83-171-69-39.ngrok-free.app/";
+    String serverURl = "https://4b33-178-65-47-77.ngrok-free.app/";
     private static final String IMAGE_DIRECTORY = "/img";
     private final int GALLERY = 1, CAMERA = 2;
     String[] activityMenu = {"Профиль", "Классы", "Выход"};

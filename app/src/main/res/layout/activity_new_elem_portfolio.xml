@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/portfolio_text_view2"
-        android:layout_width="268dp"
-        android:layout_height="36dp"
+        android:layout_width="265dp"
+        android:layout_height="40dp"
         android:text="Пополнить портфолио"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -18,7 +18,7 @@
         app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintVertical_bias="0.141" />
 
     <Spinner
         android:id="@+id/event_level_list"
@@ -34,7 +34,7 @@
     <EditText
         android:id="@+id/subject"
         android:layout_width="265dp"
-        android:layout_height="43dp"
+        android:layout_height="45dp"
         android:hint="Предмет"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,19 +46,19 @@
     <EditText
         android:id="@+id/title"
         android:layout_width="265dp"
-        android:layout_height="43dp"
+        android:layout_height="45dp"
         android:hint="Название"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.452"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.481" />
+        app:layout_constraintVertical_bias="0.46" />
 
     <Spinner
         android:id="@+id/results_list"
         android:layout_width="265dp"
-        android:layout_height="43dp"
+        android:layout_height="45dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.452"
@@ -68,21 +68,21 @@
 
     <Button
         android:id="@+id/add_new_elem"
-        android:layout_width="263dp"
-        android:layout_height="55dp"
+        android:layout_width="264dp"
+        android:layout_height="54dp"
         android:onClick="addNewElemPortfolio"
         android:text="Добавить"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintHorizontal_bias="0.450"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.902" />
 
     <Button
         android:id="@+id/back"
-        android:layout_width="81dp"
-        android:layout_height="42dp"
+        android:layout_width="90dp"
+        android:layout_height="54dp"
         android:layout_marginTop="16dp"
         android:onClick="backToActivity"
         android:text="Назад"
@@ -93,8 +93,8 @@
 
     <TextView
         android:id="@+id/event_level_label"
-        android:layout_width="266dp"
-        android:layout_height="21dp"
+        android:layout_width="265dp"
+        android:layout_height="25dp"
         android:text="Выберите уровень мероприятия"
         android:textAlignment="textStart"
         android:textSize="16sp"
@@ -107,8 +107,8 @@
 
     <TextView
         android:id="@+id/result_level_label"
-        android:layout_width="266dp"
-        android:layout_height="21dp"
+        android:layout_width="265dp"
+        android:layout_height="25dp"
         android:text="Выберете результат"
         android:textAlignment="textStart"
         android:textSize="16sp"
@@ -121,8 +121,8 @@
 
     <Button
         android:id="@+id/select_file_btn"
-        android:layout_width="211dp"
-        android:layout_height="51dp"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
         android:onClick="fileSelection"
         android:text="Выбрать файл"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -131,6 +131,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.781" />
+
+    <TextView
+        android:id="@+id/current_date"
+        android:layout_width="263dp"
+        android:layout_height="45dp"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.439"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.54" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

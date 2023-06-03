@@ -1,7 +1,5 @@
 package com.example.samsungproject;
 
-import android.graphics.Bitmap;
-
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -26,7 +24,7 @@ public class Teacher {
     }
 
     public static class GroupStudentsList {
-        TeacherData teacherData;
+        TeacherData groups;
         ArrayList<Student.StudentData> students;
     }
 
@@ -37,7 +35,7 @@ public class Teacher {
     }
 
     public static class Groups {
-        ArrayList<Group> groupsList;
+        ArrayList<Group> groups;
     }
 
     public static class NewStudentData {

@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ClassesList extends AppCompatActivity {
 
     int teacherId;
-    String serverURl = "https://7235-83-171-69-39.ngrok-free.app/";
+    String serverURl = "https://4b33-178-65-47-77.ngrok-free.app/";
     String[] activityMenu = {"Профиль", "Классы", "Выход"};
     ArrayList<Teacher.Group> classes;
     ArrayList<String> arrayList;
@@ -55,7 +55,7 @@ public class ClassesList extends AppCompatActivity {
             @Override
             public void onResponse(Call<Teacher.Groups> call, Response<Teacher.Groups> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    classes = response.body().groupsList;
+                    classes = response.body().groups;
                     if(classes != null) {
                         for (int i = 0; i < classes.size(); i++) {
                             arrayList.add(i, classes.get(i).name);
@@ -73,8 +73,8 @@ public class ClassesList extends AppCompatActivity {
         groupList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), ViewingClass.class);
-                startActivity(intent);
+                //Intent intent = new Intent(getApplicationContext(), ViewingClass.class);
+                //startActivity(intent);
             }
 
             @Override
@@ -97,9 +97,6 @@ public class ClassesList extends AppCompatActivity {
                 if(position == 0) {
                     openProfileTeacher();
                 }
-                if(position == 1) {
-                    openViewingClass();
-                }
                 if(position == 2) {
                     exitProfile();
                 }
@@ -113,12 +110,6 @@ public class ClassesList extends AppCompatActivity {
 
     public void openProfileTeacher() {
         Intent intent = new Intent(this, TeacherProfile.class);
-        startActivity(intent);
-    }
-
-    public void openViewingClass() {
-        Intent intent = new Intent(this, ViewingClass.class);
-
         startActivity(intent);
     }
 

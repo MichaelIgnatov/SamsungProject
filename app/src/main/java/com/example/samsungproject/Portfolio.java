@@ -25,8 +25,9 @@ public class Portfolio extends AppCompatActivity {
     ArrayList<Student.StudentPortfolio> studentPortfolioList;
     ArrayAdapter<String> portfolioListAdapter;
     ListView listView;
+    public static int listLength;
     ArrayList<String> portfolioLists;
-    String serverURl = "https://b991-178-65-47-77.ngrok-free.app/";
+    String serverURl = "https://4b33-178-65-47-77.ngrok-free.app/";
     String[] activityMenu = {"Профиль", "Портфолио", "Результаты ПА", "Выход"};
 
     @Override
@@ -58,6 +59,7 @@ public class Portfolio extends AppCompatActivity {
                 Log.i("1", String.valueOf(portfolioLists.size()));
                 if (response.isSuccessful() && response.body() != null) {
                     studentPortfolioList = response.body().portfolio;
+                    listLength = studentPortfolioList.size();
                     if (studentPortfolioList != null) {
                         for (int i = 0; i < studentPortfolioList.size(); i++) {
                             portfolioLists.add(i, studentPortfolioList.get(i).name);

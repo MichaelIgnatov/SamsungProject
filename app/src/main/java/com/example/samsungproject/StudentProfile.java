@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.List;
 
@@ -45,11 +47,10 @@ public class StudentProfile extends AppCompatActivity {
     EditText passwordEditText;
     EditText newPasswordEditText;
     EditText repeatPasswordEditText;
-    ImageView userAvatar;
+    ImageView studentAvatar;
     int studentId;
     String currentStudentPassword;
-    public ImageView studentAvatar;
-    String serverURl = "https://7235-83-171-69-39.ngrok-free.app/";
+    String serverURl = "https://4b33-178-65-47-77.ngrok-free.app/";
     private static final String IMAGE_DIRECTORY = "/img";
     private final int GALLERY = 1, CAMERA = 2;
     String[] activityMenu = {"Профиль", "Портфолио", "Результаты ПА", "Выход"};
@@ -60,24 +61,35 @@ public class StudentProfile extends AppCompatActivity {
         setContentView(R.layout.activity_student_profile);
 
         requestMultiplePermissions();
+        Log.i("!!!!", StudentLoginActivity.studentData.id + "");
 
-        studentId = StudentLoginActivity.studentData.id;
         currentStudentPassword = StudentLoginActivity.studentData.password;
+        studentId = StudentLoginActivity.studentData.id;
 
         changeStudentAvatar = findViewById(R.id.change_avatar_btn);
         passwordEditText = findViewById(R.id.current_password);
         newPasswordEditText = findViewById(R.id.new_password);
         repeatPasswordEditText = findViewById(R.id.repeat_password);
-        userAvatar = findViewById(R.id.user_avatar);
+        studentAvatar = findViewById(R.id.user_avatar);
         TextView studentData = findViewById(R.id.student_data);
         studentData.setText(StudentLoginActivity.studentData.name);
 
-
-
-        //if(StudentLoginActivity.studentData.avatar != 0) {
-            //Bitmap bitmap = StudentLoginActivity.studentData.avatar
-            //userAvatar.setImageBitmap();
-        //}
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    Bitmap bitmap = loadImage(serverURl + TeacherLoginActivity.teacherData.avatar);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            studentAvatar.setImageBitmap(bitmap);
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, activityMenu);
@@ -253,5 +265,9 @@ public class StudentProfile extends AppCompatActivity {
                     }
                 }
     }
+    public Bitmap loadImage(String s) throws IOException {
+        URL url = new URL(s);
 
+        return BitmapFactory.decodeStream(url.openStream());
+    }
 }
