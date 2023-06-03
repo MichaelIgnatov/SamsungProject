@@ -1,5 +1,9 @@
 package com.example.samsungproject;
 
+import static com.example.samsungproject.StudentLoginActivity.STUDENT_AVATAR;
+import static com.example.samsungproject.StudentLoginActivity.STUDENT_ID;
+import static com.example.samsungproject.StudentLoginActivity.STUDENT_NAME;
+
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -23,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.karumi.dexter.Dexter;
@@ -42,15 +47,15 @@ import java.util.Calendar;
 import java.util.List;
 
 public class StudentProfile extends AppCompatActivity {
-
     private Button changeStudentAvatar;
     EditText passwordEditText;
     EditText newPasswordEditText;
     EditText repeatPasswordEditText;
     ImageView studentAvatar;
     int studentId;
-    String currentStudentPassword;
+    String currentStudentPassword, studentName, avatar;
     String serverURl = Student.serverURl;
+
     private static final String IMAGE_DIRECTORY = "/img";
     private final int GALLERY = 1, CAMERA = 2;
     String[] activityMenu = {"Профиль", "Портфолио", "Результаты ПА", "Выход"};
@@ -62,8 +67,9 @@ public class StudentProfile extends AppCompatActivity {
 
         requestMultiplePermissions();
 
-        studentId = StudentLoginActivity.studentData.id;
-        currentStudentPassword = StudentLoginActivity.studentData.password;
+        studentName = getIntent().getStringExtra(STUDENT_NAME);
+        studentId = getIntent().getIntExtra(STUDENT_ID, 0);
+        avatar = getIntent().getStringExtra(STUDENT_AVATAR);
 
         changeStudentAvatar = findViewById(R.id.change_avatar_btn);
         passwordEditText = findViewById(R.id.current_password);
@@ -71,24 +77,26 @@ public class StudentProfile extends AppCompatActivity {
         repeatPasswordEditText = findViewById(R.id.repeat_password);
         studentAvatar = findViewById(R.id.user_avatar);
         TextView studentData = findViewById(R.id.student_data);
-        studentData.setText(StudentLoginActivity.studentData.name);
+        studentData.setText(studentName);
 
-        new Thread(){
-            @Override
-            public void run() {
-                try {
-                    Bitmap bitmap = loadImage(serverURl + TeacherLoginActivity.teacherData.avatar);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            studentAvatar.setImageBitmap(bitmap);
-                        }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
+        if (avatar != null && !avatar.equals("")){
+            new Thread(){
+                @Override
+                public void run() {
+                    try {
+                        Bitmap bitmap = loadImage(serverURl + avatar);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                studentAvatar.setImageBitmap(bitmap);
+                            }
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }.start();
+            }.start();
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, activityMenu);

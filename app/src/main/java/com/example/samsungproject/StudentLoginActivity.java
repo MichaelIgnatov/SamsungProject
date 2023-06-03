@@ -16,6 +16,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class StudentLoginActivity extends AppCompatActivity {
+    public static final String STUDENT_NAME = "STUDENT_NAME";
+    public static final String STUDENT_ID = "STUDENT_ID";
+    public static final String STUDENT_AVATAR = "STUDENT_AVATAR";
+
     public static Student.StudentData studentData;
     public static String headerInfo;
     EditText studentPasswordTextedit;
@@ -54,7 +58,11 @@ public class StudentLoginActivity extends AppCompatActivity {
                     studentData = response.body();
                     Log.i("!!!!", studentData.id + "");
                     Intent intent = new Intent(getApplicationContext(), StudentProfile.class);
+                    intent.putExtra(STUDENT_NAME, response.body().name);
+                    intent.putExtra(STUDENT_ID, response.body().id);
+                    intent.putExtra(STUDENT_AVATAR, response.body().avatar);
                     startActivity(intent);
+                    //finish();
                 } else{
                     Toast.makeText(getApplicationContext(), "Что-то пошло не так", Toast.LENGTH_SHORT).show();
                 }
